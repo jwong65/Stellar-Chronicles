@@ -1,23 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
 
 function App() {
+
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const [gameState, setGameState]  = useState(null)
+  useEffect(()=>{
+    function startGame(){
+      fetch(`${backendUrl}/api/game/start`,{
+        method: 'POST'
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.gameState){
+          setGameState(data.gameState)
+        }
+        else{
+          console.error('No gameState returned from API')
+        }
+      })
+      .catch(error=>{
+        console.error('Error starting game', error)
+      })
+    }
+    startGame()
+  },[])
+  console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div id='gameState'>Hello</div>
+      {gameState && (
+          <pre>{JSON.stringify(gameState, null, 2)}</pre>
+        )}
     </div>
   );
 }
