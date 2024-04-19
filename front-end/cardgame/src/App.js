@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import GameInterface from './components/game/GameInterface';
 
 function App() {
 
@@ -24,14 +25,14 @@ function App() {
       })
     }
     startGame()
-  },[])
-  console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
+  })
   return (
     <div className="App">
       <div id='gameState'>Hello</div>
       {gameState && (
           <pre>{JSON.stringify(gameState, null, 2)}</pre>
         )}
+      <GameInterface />
     </div>
   );
 }
