@@ -1,7 +1,14 @@
 #game-interface{
-    
     background-color: darkgray;
     border: 1px solid black;
     width: 80%;
     height: 85%;
   }
+.game-board{
+    background-color: cadetblue;
+    border: 1px solid black;
+    height: 300px;
+}
+.player-hand{
+    display: flex;
+}
