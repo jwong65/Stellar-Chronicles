@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import './card.css'
 
 export default function Card({value, effect}) {
@@ -13,8 +12,6 @@ export default function Card({value, effect}) {
         Card: {value} and {effect}
       </div>
       <div className='back'>
-        <h2>Back</h2>
-        {/* <img src='../images/Wood Back.jpg' alt='Card Back'/> */}
       </div>
     </div>
   )

@@ -46,6 +46,10 @@
   .back {
     background-color: lightblue;
     transform: rotateY(180deg);
+    background-image: url('../images/Wood\ Back.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
   }
   
   .sprite-container {
