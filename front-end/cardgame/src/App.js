@@ -1,6 +1,9 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import GameInterface from './components/game/GameInterface';
+import Tutorial from './components/game/Tutorial';
+import StartingMenu from './components/game/StartingMenu'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
 
@@ -25,14 +28,19 @@ function App() {
       })
     }
     startGame()
-  })
+  }, [backendUrl])
   return (
     <div className="App">
-      <div id='gameState'>Hello</div>
       {gameState && (
           <pre>{JSON.stringify(gameState, null, 2)}</pre>
         )}
-      
+      <Router>
+        <Routes>
+          <Route path="/" element={<StartingMenu />} />
+          {/* <Route path='/start' element={<StartingMenu />} /> */}
+          <Route path='tutorial' element={<Tutorial />} />
+        </Routes> 
+      </Router>
       <GameInterface />
     </div>
   );
