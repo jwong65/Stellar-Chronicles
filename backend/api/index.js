@@ -4,22 +4,35 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors())
+
+const gameState = {
+  id: 1,
+  players: ['Player 1', 'Player 2'],
+  currentTurn: 'Player 1',
+};
 app.get('/', (req, res) => {
     res.json({ message: 'Hello from Express!' });
   });
-app.get('/api/game/start', (req, res) => {
-  res.json({message: 'Game already started!'});
-});
-  
-app.post('/api/game/start', (req, res) => {
-    const gameState = {
-        id: 1,
-        players: ['Player 1', 'Player 2'],
-        currentTurn: 'Player 1',
-    };
+
+// Get the current game state
+app.get('/api/game/state', (req, res)=>{
+  res.json({gameState})
+})
+// Starts a new game
+app.post('/api/game/start', (req, res) => {    
     res.json({ message: 'New game started!', gameState: gameState });
   });
+// Ends the turn
+app.post('/api/game/end-turn', (req, res) => {
+  if (gameState.currentTurn == 'Player 1'){
+    gameState.currentTurn = 'Player 2'
+  }
+  else{
+    gameState.currentTurn = 'Player 1'
+  }
+  res.json({message: 'Turn Ended.', gameState})
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
-  

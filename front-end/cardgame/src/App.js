@@ -32,6 +32,7 @@ function App() {
       {gameState && (
           <pre>{JSON.stringify(gameState, null, 2)}</pre>
         )}
+      
       <GameInterface />
     </div>
   );
