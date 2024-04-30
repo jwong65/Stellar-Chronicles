@@ -3,7 +3,11 @@ const cors = require('cors')
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const tutorialRoutes = require('./routes/tutorialRoutes');
+
 app.use(cors())
+
+app.use(`/api/tutorial`, tutorialRoutes)
 
 const gameState = {
   id: 1,

@@ -1,4 +1,5 @@
 import React from 'react'
+import './button.css'
 
 export default function EndTurn(isPlayerTurn) {
     const handleClick=()=>{
@@ -9,6 +10,8 @@ export default function EndTurn(isPlayerTurn) {
         }
     }
   return (
-    <div onClick={handleClick}>End Turn</div>
+    <div className='end-turn' onClick={handleClick}>
+      <button>End Turn</button>
+    </div>
   )
 }

@@ -1,14 +1,52 @@
 #game-interface{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: darkgray;
     border: 1px solid black;
-    width: 80%;
-    height: 85%;
+    height: 100vh;
+    width: 100vw;
   }
 .game-board{
-    background-color: cadetblue;
+    background-color: #98c1d9;
     border: 1px solid black;
     height: 300px;
+    width: 75vw;
 }
 .player-hand{
     display: flex;
+}
+.enemyhealth{
+    border: 1px solid #4b244a
+}
+.end-turn {
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    z-index: 1;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; 
+    background-color: #6969B3; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; 
+}
+.end-turn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; 
+}
+.end-turn button {
+    border: none;
+    background: transparent;
+    color: white; 
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+}
+
+.end-turn:hover {
+    background-color: #533a7b; 
 }

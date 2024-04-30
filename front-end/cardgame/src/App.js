@@ -41,7 +41,6 @@ function App() {
           <Route path='tutorial' element={<Tutorial />} />
         </Routes> 
       </Router>
-      <GameInterface />
     </div>
   );
 }

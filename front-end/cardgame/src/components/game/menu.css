@@ -10,6 +10,9 @@
 h1{
     color: #f6e8ea;
 }
+p{
+    color: #312f2f;
+}
 .button-container{
     display: flex;
     flex-direction: row;
