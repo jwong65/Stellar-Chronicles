@@ -4,9 +4,9 @@ const router = express.Router();
 // Middleware to handle requests to /api/tutorial/cards
 router.get('/cards', (req, res) => {
   const tutorialCards = [
-    { id: 1, value: 'Tutorial Card 1', effect: 'Tutorial Effect 1' },
-    { id: 2, value: 'Tutorial Card 2', effect: 'Tutorial Effect 2' },
-    { id: 3, value: 'Tutorial Card 3', effect: 'Tutorial Effect 3' }
+    { id: 1, cost: 1, value: 'Tutorial Card 1', effect: 'Deal 2 damage' },
+    { id: 2, cost: 2, value: 'Tutorial Card 2', effect: 'Tutorial Effect 2' },
+    { id: 3, cost: 1, value: 'Tutorial Card 3', effect: 'Tutorial Effect 3' }
   ];
   res.json({ cards: tutorialCards });
 });

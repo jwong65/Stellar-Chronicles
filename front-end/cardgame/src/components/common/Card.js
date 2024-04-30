@@ -1,18 +1,28 @@
 import React, { useState } from 'react'
 import './card.css'
 
-export default function Card({value, effect}) {
+export default function Card({id, cost, value, effect, handleCardClick}) {
   const [flip, setFlip] = useState(false)
+  const handleClick=() =>{
+    console.log('Card clicked: ', id)
+    console.log(cost)
+    handleCardClick(2)
+  }
   return (
     <div 
-      className={`card ${flip ? "flip": ""}`} onMouseEnter={()=>setFlip(true)} onMouseLeave={()=>setFlip(false)}
+      className={`card ${flip ? "flip": ""}`}
+      onClick={handleClick} 
     > 
       <div className='front'>
-        <div className='sprite-container'></div>
-        Card: {value} and {effect}
+        <p>Cost: {cost} </p>
+        <div className='sprite-container' />
+          {/* <p>Card: {value}</p> */}
+          <p>{effect}</p>
       </div>
       <div className='back'>
       </div>
     </div>
   )
 }
+// onMouseEnter={()=>setFlip(true)} onMouseLeave={()=>setFlip(false)
+// This is the flip effect of the card on hover but doesn't make sense right now.
