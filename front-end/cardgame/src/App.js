@@ -31,9 +31,6 @@ function App() {
   }, [backendUrl])
   return (
     <div className="App">
-      {gameState && (
-          <pre>{JSON.stringify(gameState, null, 2)}</pre>
-        )}
       <Router>
         <Routes>
           <Route path="/" element={<StartingMenu />} />
