@@ -4,8 +4,6 @@ import './card.css'
 export default function Card({id, cost, value, effect, handleCardClick}) {
   const [flip, setFlip] = useState(false)
   const handleClick=() =>{
-    console.log('Card clicked: ', id)
-    console.log(cost)
     handleCardClick(2)
   }
   return (
