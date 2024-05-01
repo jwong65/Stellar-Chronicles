@@ -12,10 +12,3 @@ router.get('/cards', (req, res) => {
 });
 
 module.exports = router;
-
-//   // const [player1Hand, setPlayer1Hand] = useState([
-    //     { id: 1, value: 'Ace', effect: 'Destroy 2 cards' },
-    //     { id: 2, value: 'Spade', effect:'Restore 2 health'}
-    // ])
-    // If is Player Turn is true, it means it is currently the player's turn
-  

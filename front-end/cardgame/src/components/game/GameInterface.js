@@ -4,16 +4,25 @@ import Card from '../common/Card'
 import EndTurn from '../common/EndTurn'
 
 export default function GameInterface({player1Hand}) {
+  const maxHealth = 15
   const [isPlayerTurn, setIsPlayerTurn] = useState(true)
-  const [enemyHealth, setEnemyHealth] = useState(15)
+  const [enemyHealth, setEnemyHealth] = useState(maxHealth)
+
   const handleCardClick = (card)=>{
     if(card.type === 'Damage'){
       setEnemyHealth(prevHealth =>prevHealth - card.value)
     }
 } 
+const healthPercentage = (enemyHealth / maxHealth) * 100;
+console.log(healthPercentage)
     return (
     <div id='game-interface'>
-        <div className='enemy-health' id='enemyhealth'>Enemy Health: {enemyHealth}</div>
+        <div className='enemy-health' id='enemyhealth'>
+          Enemy Health: {enemyHealth}
+          <div className='health-bar'>
+            <div className='health-fill' style={{ width: `${healthPercentage}%` }}></div>
+          </div>
+        </div>
         <div className='game-board' id= 'playfield' ></div>
         <div className='player-hand' id='player-hand'>
         {player1Hand.map(card => (
