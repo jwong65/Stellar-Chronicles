@@ -1,0 +1,18 @@
+.card-message {
+    width: 200px; 
+    height: 120px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10%;
+    padding: 10px;
+    margin-right: 20px;
+  }
+ 
+  .message-info {
+    border: 1px solid red;
+    background-color: #f0f0f0;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    width: 75vw; 
+    text-align: center; 
+}

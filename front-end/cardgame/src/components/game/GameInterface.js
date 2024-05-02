@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import './interface.css'
 import Card from '../common/Card'
 import EndTurn from '../common/EndTurn'
+import InfoMessage from './CardMessage'
+import GameMessage from './GameMessage'
 
 export default function GameInterface({player1Hand}) {
   const maxHealth = 15
@@ -23,14 +25,18 @@ console.log(healthPercentage)
             <div className='health-fill' style={{ width: `${healthPercentage}%` }}></div>
           </div>
         </div>
-        <div className='game-board' id= 'playfield' ></div>
+        <div id='playarea'>
+          <InfoMessage />
+          <div className='game-board' id= 'playfield' ></div>  
+          <div className='end-turn-container'>
+            <EndTurn isPlayerTurn={isPlayerTurn} />
+          </div>
+        </div>
+        <GameMessage />
         <div className='player-hand' id='player-hand'>
         {player1Hand.map(card => (
           <Card key={card.id} id={card.id} value={card.value} effect={card.effect} cost={card.cost} type={card.type} handleCardClick={()=>handleCardClick(card)}/>
         ))}
-        <div className='end-turn-container'>
-          <EndTurn isPlayerTurn={isPlayerTurn} />
-        </div>
         </div>
     </div>
   )
