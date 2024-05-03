@@ -8,7 +8,6 @@
     width: 100vw;
   }
   #playarea {
-    border: 1px solid red;
     position: relative;
     display: flex; 
     flex-direction: row;
@@ -23,7 +22,6 @@
     z-index: 1;
 }
 .player-hand{
-    border: 1px solid red;
     display: flex;
     margin-top: 10px;
 }
