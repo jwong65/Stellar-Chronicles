@@ -2,7 +2,7 @@ import React from 'react'
 import './info.css'
 
 export default function CardMessage({ cardInfo }) {
-console.log(cardInfo)
+// console.log(cardInfo)
 const { id, cost, value, effect } = cardInfo;
 // console.log(cardInfo.cost, "Cost")
 return (

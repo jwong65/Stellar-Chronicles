@@ -4,10 +4,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const tutorialRoutes = require('./routes/tutorialRoutes');
+const manaRoutes = require('./routes/manaRoutes');
 
 app.use(cors())
 
 app.use(`/api/tutorial`, tutorialRoutes)
+app.use(`/api/player/mana`, manaRoutes)
 
 const gameState = {
   id: 1,
