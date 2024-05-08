@@ -16,7 +16,7 @@ export default function GameInterface({player1Hand}) {
   const [playerHand, setPlayerHand] = useState(player1Hand)
   const [enemyHealth, setEnemyHealth] = useState(maxHealth)
   const [cardInfo, setCardInfo] = useState({})
-  
+
 // UseEffect so that on load the player hand loads.
   useEffect(()=>{
     setPlayerHand(player1Hand)
@@ -60,7 +60,7 @@ export default function GameInterface({player1Hand}) {
     setCardInfo({})
   }
   const drawCard = (card )=>{
-    setPlayerHand([...player1Hand, card])
+    setPlayerHand([...playerHand, card])
   }
 const healthPercentage = (enemyHealth / maxHealth) * 100;
     return (

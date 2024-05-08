@@ -6,6 +6,7 @@ export default function Deck({drawCard}) {
     const [deckCards, setDeckCards] = useState([])
     const [isDrawing, setIsDrawing] = useState(false)
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    const numCardsInDeck = deckCards.length;
     useEffect(() => {
       fetchDeckCards()
     },[]);
@@ -25,6 +26,9 @@ export default function Deck({drawCard}) {
     };
 
     const handleDrawingCards=()=>{
+      if (deckCards.length=='0'){
+        return
+      }
       setIsDrawing(true)
       setTimeout(()=>{
         drawCard(deckCards[0])
@@ -41,8 +45,9 @@ export default function Deck({drawCard}) {
         // Placeholder for animation, can be a spinner or any loading indicator
         <div>Loading...</div>
       ) : (
-        // Actual deck card, you can style this as needed
-        <div className='deck-card'></div>
+        <div className='deck-card'>
+          <span className='number-deck'>{numCardsInDeck}</span>
+        </div>
       )}    
       
     </div>
