@@ -42,8 +42,9 @@ export default function Deck({drawCard}) {
     return(
     <div className='deck' onClick={handleDrawingCards}>
       {isDrawing ? (
-        // Placeholder for animation, can be a spinner or any loading indicator
-        <div>Loading...</div>
+        <div className='deck-card draw-card-animation'>
+          <span className='number-deck'>{numCardsInDeck}</span>
+        </div>
       ) : (
         <div className='deck-card'>
           <span className='number-deck'>{numCardsInDeck}</span>
