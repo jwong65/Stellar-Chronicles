@@ -74,4 +74,31 @@
       background-position: -128px 0;
     }
   }
+  .player-container {
+    display: flex;
+  }
   
+  /* .deck{
+    background-image: url('../images/Wood\ Back.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    width: 100px;
+    height: 150px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 20px
+  } */
+
+  .deck-card{
+      background-image: url('../images/Wood\ Back.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px;
+      width: 100px;
+      height: 150px;
+      padding: 10px;
+      margin-top: 10px;
+      margin-left: 20px;
+      cursor: pointer;
+  }

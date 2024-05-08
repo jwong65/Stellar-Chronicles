@@ -5,6 +5,7 @@ import EndTurn from '../common/EndTurn'
 import CardMessage from './CardMessage'
 import GameMessage from './GameMessage'
 import ManaImage from './ManaImage'
+import Deck from '../common/Deck'
 
 export default function GameInterface({player1Hand}) {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -12,9 +13,14 @@ export default function GameInterface({player1Hand}) {
   const maxMana = 4
   const [playerMana, setPlayerMana] = useState(0)
   const [isPlayerTurn, setIsPlayerTurn] = useState(true)
+  const [playerHand, setPlayerHand] = useState(player1Hand)
   const [enemyHealth, setEnemyHealth] = useState(maxHealth)
   const [cardInfo, setCardInfo] = useState({})
-
+  
+// UseEffect so that on load the player hand loads.
+  useEffect(()=>{
+    setPlayerHand(player1Hand)
+  }, [player1Hand])
   useEffect(() => {
     // Fetch player's mana from the backend
     fetchPlayerMana();
@@ -53,6 +59,9 @@ export default function GameInterface({player1Hand}) {
   const handleCardLeave=()=>{
     setCardInfo({})
   }
+  const drawCard = (card )=>{
+    setPlayerHand([...player1Hand, card])
+  }
 const healthPercentage = (enemyHealth / maxHealth) * 100;
     return (
     <div id='game-interface'>
@@ -66,10 +75,7 @@ const healthPercentage = (enemyHealth / maxHealth) * 100;
           <div className='info-container'>
             <CardMessage cardInfo={cardInfo}/>
             <div className='mana-container'>
-              Maximum Mana : {playerMana}/{maxMana}
-            {/* {[...Array(Math.max(0, Math.floor(playerMana)))].map((_, index) => (
-              <ManaImage key={index} />
-            ))} */}
+              Current Mana : {playerMana}/{maxMana}
               {[...Array(playerMana)].map((_, index) => (
                 <ManaImage key={index} available={index < playerMana} />
               ))}
@@ -84,8 +90,9 @@ const healthPercentage = (enemyHealth / maxHealth) * 100;
           </div>
         </div>
         <GameMessage />
+        <div className='player-container'>
         <div className='player-hand' id='player-hand'>
-        {player1Hand.map(card => (
+        {playerHand.map(card => (
           <Card key={card.id} id={card.id} value={card.value} effect={card.effect} cost={card.cost} type={card.type} 
             handleCardClick={() => { handleCardClick(card); }} 
             handleCardHover={handleCardHover}
@@ -93,6 +100,10 @@ const healthPercentage = (enemyHealth / maxHealth) * 100;
           />
         ))}
         </div>
+        <div className='deck-container'>
+          <Deck drawCard={drawCard}/>
+        </div>
+      </div>
     </div>
   )
 }
