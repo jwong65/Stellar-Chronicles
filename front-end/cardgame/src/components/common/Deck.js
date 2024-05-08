@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {cardBack} from '../images/Wood Back.png'
 import '../common/card.css'
 
-export default function Deck({drawCard}) {
+export default function Deck({drawCard, setGameInfoMessage}) {
     const [deckCards, setDeckCards] = useState([])
     const [isDrawing, setIsDrawing] = useState(false)
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -27,6 +27,7 @@ export default function Deck({drawCard}) {
 
     const handleDrawingCards=()=>{
       if (deckCards.length=='0'){
+        setGameInfoMessage('No cards left in deck')
         return
       }
       setIsDrawing(true)

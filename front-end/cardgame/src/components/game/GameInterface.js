@@ -16,6 +16,7 @@ export default function GameInterface({player1Hand}) {
   const [playerHand, setPlayerHand] = useState(player1Hand)
   const [enemyHealth, setEnemyHealth] = useState(maxHealth)
   const [cardInfo, setCardInfo] = useState({})
+  const [gameInfoMessage, setGameInfoMessage] = useState("")
 
 // UseEffect so that on load the player hand loads.
   useEffect(()=>{
@@ -50,7 +51,7 @@ export default function GameInterface({player1Hand}) {
       setPlayerMana(prevMana => prevMana - card.cost)
     }
     else{
-      console.log('No more mana to play card')
+      setGameInfoMessage('No more mana to play this card')
     }
   }
   const handleCardHover = (card)=>{
@@ -89,7 +90,7 @@ const healthPercentage = (enemyHealth / maxHealth) * 100;
             <EndTurn isPlayerTurn={isPlayerTurn} />
           </div>
         </div>
-        <GameMessage />
+        <GameMessage GameMessage={gameInfoMessage}/>
         <div className='player-container'>
         <div className='player-hand' id='player-hand'>
         {playerHand.map(card => (
@@ -101,7 +102,7 @@ const healthPercentage = (enemyHealth / maxHealth) * 100;
         ))}
         </div>
         <div className='deck-container'>
-          <Deck drawCard={drawCard}/>
+          <Deck drawCard={drawCard} setGameInfoMessage={setGameInfoMessage}/>
         </div>
       </div>
     </div>
