@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: darkgray;
+    background-color: #ffecd6 ;
     border: 1px solid black;
     height: 100vh;
     width: 100vw;
@@ -15,11 +15,16 @@
     margin-top: 10px;
   }
 .game-board{
-    background-color: #98c1d9;
-    border: 1px solid black;
+    /* background-image: url('../images/MainPanel03.png'); */
+    background-color :#0a192f;
+    background-image: linear-gradient(to bottom right,  #ffaa5e, #ffd4a3  );
+    background-size: 100% 100%;
+    background-position: center;
+    border-radius: 8px;
     height: 50vh;
     width: 75vw;
     z-index: 1;
+    
 }
 .player-hand{
     display: flex;
@@ -46,7 +51,7 @@
     width: 150px;
     height: 150px;
     border-radius: 50%; 
-    background-color: #6969B3; 
+    background-color: #544e68; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,5 +78,7 @@
 }
 
 .end-turn:hover {
-    background-color: #533a7b; 
+    background-color: #8d697a; 
 }
+/* #544e68
+#8d697a  */
