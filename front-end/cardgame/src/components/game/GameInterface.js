@@ -7,6 +7,7 @@ import GameMessage from './GameMessage'
 import ManaImage from './ManaImage'
 import Deck from '../common/Deck'
 import GameBoard from './GameBoard'
+import { v4 as uuidv4 } from 'uuid';
 
 export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -15,6 +16,7 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const [playerMana, setPlayerMana] = useState(0)
   const [isPlayerTurn, setIsPlayerTurn] = useState(true)
   const [playerHand, setPlayerHand] = useState(player1Hand)
+  const [usedCards, setUsedCards] = useState([])
   const [enemyHealth, setEnemyHealth] = useState(maxHealth)
   const [cardInfo, setCardInfo] = useState({})
   const [gameInfoMessage, setGameInfoMessage] = useState("")
@@ -50,11 +52,22 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
       setEnemyHealth(prevHealth =>prevHealth - card.value)
     }
       setPlayerMana(prevMana => prevMana - card.cost)
+      setUsedCards(prevUsedCards => [...prevUsedCards, card]);
+      setPlayerHand(prevHand => prevHand.filter(c => c.id !== card.id));
+      // console.log(usedCards)
     }
     else{
-      setGameInfoMessage('No more mana to play this card')
+      setGameInfoMessage('Not enough mana to play this card')
     }
   }
+
+  const handleCardUse = (card) => {
+    setPlayerHand(playerHand.filter((c) => c.id !== card.id));
+
+    setUsedCards([...usedCards, card]);
+  };
+
+  // These two handles are for the cardInformation on hover.
   const handleCardHover = (card)=>{
     setCardInfo(card)
   } 
@@ -95,7 +108,7 @@ const healthPercentage = (enemyHealth / maxHealth) * 100;
         <div className='player-container'>
         <div className='player-hand' id='player-hand'>
         {playerHand.map(card => (
-          <Card key={card.id} id={card.id} value={card.value} effect={card.effect} cost={card.cost} type={card.type} 
+          <Card key={uuidv4()} id={card.id} value={card.value} effect={card.effect} cost={card.cost} type={card.type} 
             handleCardClick={() => { handleCardClick(card); }} 
             handleCardHover={handleCardHover}
             handleCardLeave={handleCardLeave}
@@ -103,7 +116,7 @@ const healthPercentage = (enemyHealth / maxHealth) * 100;
         ))}
         </div>
         <div className='deck-container'>
-          <Deck drawCard={drawCard} setGameInfoMessage={setGameInfoMessage} fetchTutorialDeck={fetchTutorialDeck}/>
+          <Deck drawCard={drawCard} setGameInfoMessage={setGameInfoMessage} fetchTutorialDeck={fetchTutorialDeck} usedCards={usedCards} />
         </div>
       </div>
     </div>

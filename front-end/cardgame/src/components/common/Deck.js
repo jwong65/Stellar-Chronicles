@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {cardBack} from '../images/Wood Back.png'
 import '../common/card.css'
 
-export default function Deck({drawCard, setGameInfoMessage, fetchTutorialDeck}) {
+export default function Deck({drawCard, setGameInfoMessage, fetchTutorialDeck, usedCards}) {
     const [deckCards, setDeckCards] = useState([])
     const [isDrawing, setIsDrawing] = useState(false)
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -53,7 +53,12 @@ export default function Deck({drawCard, setGameInfoMessage, fetchTutorialDeck}) 
           <span className='number-deck'>{numCardsInDeck}</span>
         </div>
       )}    
-      
+      {/* Considering some sort of viewing for the cards that were used already */}
+        {/* <div className="used-cards">
+        {usedCards.map((card) => (
+          <Card key={card.id} card={card} isInHand={false} />
+        ))}
+      </div> */}
     </div>
       )
 }
