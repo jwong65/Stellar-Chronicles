@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react'
 import {cardBack} from '../images/Wood Back.png'
 import '../common/card.css'
 
-export default function Deck({drawCard, setGameInfoMessage}) {
+export default function Deck({drawCard, setGameInfoMessage, fetchTutorialDeck}) {
     const [deckCards, setDeckCards] = useState([])
     const [isDrawing, setIsDrawing] = useState(false)
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const numCardsInDeck = deckCards.length;
     useEffect(() => {
+      if (fetchTutorialDeck){
       fetchDeckCards()
-    },[]);
+      }
+    },[fetchTutorialDeck]);
 
     const fetchDeckCards = async () => {
       try {

@@ -6,8 +6,9 @@ import CardMessage from './CardMessage'
 import GameMessage from './GameMessage'
 import ManaImage from './ManaImage'
 import Deck from '../common/Deck'
+import GameBoard from './GameBoard'
 
-export default function GameInterface({player1Hand}) {
+export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const maxHealth = 15
   const maxMana = 4
@@ -85,7 +86,7 @@ const healthPercentage = (enemyHealth / maxHealth) * 100;
               ))}
           </div>
         </div>
-          <div className='game-board' id= 'playfield' ></div>  
+          <GameBoard /> 
           <div className='end-turn-container'>
             <EndTurn isPlayerTurn={isPlayerTurn} />
           </div>
@@ -102,7 +103,7 @@ const healthPercentage = (enemyHealth / maxHealth) * 100;
         ))}
         </div>
         <div className='deck-container'>
-          <Deck drawCard={drawCard} setGameInfoMessage={setGameInfoMessage}/>
+          <Deck drawCard={drawCard} setGameInfoMessage={setGameInfoMessage} fetchTutorialDeck={fetchTutorialDeck}/>
         </div>
       </div>
     </div>

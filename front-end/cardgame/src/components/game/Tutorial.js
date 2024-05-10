@@ -22,7 +22,7 @@ export default function Tutorial() {
   return (
     <div>
       <p>Welcome to the tutorial</p>
-      <GameInterface player1Hand={tutorialCards}/>
+      <GameInterface player1Hand={tutorialCards} fetchTutorialDeck={true}/>
     </div>
     )
 }
