@@ -78,8 +78,13 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
     if (card.type === 'Self Damage'){
       setPlayerHealth(prevHealth => prevHealth - card.value)
     }
-    if(card.type === 'Heal'){
-      setPlayerHealth(prevHealth => prevHealth + card.value)
+    if (card.type === 'Heal') {
+      if (playerHealth < maxHealth) {
+        setPlayerHealth(prevHealth => Math.min(prevHealth + card.value, maxHealth));
+      } else {
+        setGameInfoMessage('Player health is already at maximum');
+        return;
+      }
     }
       setPlayerMana(prevMana => prevMana - card.cost)
       setUsedCards(prevUsedCards => [...prevUsedCards, card]);

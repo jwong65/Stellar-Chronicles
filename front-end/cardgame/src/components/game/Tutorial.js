@@ -5,9 +5,6 @@ export default function Tutorial() {
   
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const [tutorialCards, setTutorialCards] = useState([])
-  useEffect(() => {
-    fetchTutorialCards()
-  }, [])
   const fetchTutorialCards = ()=>{
     fetch(`${backendUrl}/api/tutorial/cards`)
     
@@ -19,6 +16,10 @@ export default function Tutorial() {
       console.error('Error fetching tutorial cards', error)
     })
   }
+  useEffect(() => {
+    fetchTutorialCards()
+  }, [])
+  
   return (
     <div>
       <p>Welcome to the tutorial</p>
