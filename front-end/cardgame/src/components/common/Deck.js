@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import {cardBack} from '../images/Wood Back.png'
+import React, { useEffect, useState, useCallback } from 'react'
 import '../common/card.css'
 
 export default function Deck({drawCard, setGameInfoMessage, fetchTutorialDeck, usedCards}) {
@@ -7,13 +6,8 @@ export default function Deck({drawCard, setGameInfoMessage, fetchTutorialDeck, u
     const [isDrawing, setIsDrawing] = useState(false)
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const numCardsInDeck = deckCards.length;
-    useEffect(() => {
-      if (fetchTutorialDeck){
-      fetchDeckCards()
-      }
-    },[fetchTutorialDeck]);
 
-    const fetchDeckCards = async () => {
+    const fetchDeckCards = useCallback (async () => {
       try {
         const response = await fetch(`${backendUrl}/api/tutorial/deck`);
         if (response.ok) {
@@ -25,10 +19,10 @@ export default function Deck({drawCard, setGameInfoMessage, fetchTutorialDeck, u
       } catch (error) {
         console.error('Error fetching deck cards:', error);
       }
-    };
+    },[backendUrl])
 
     const handleDrawingCards=()=>{
-      if (deckCards.length=='0'){
+      if (deckCards.length==='0'){
         setGameInfoMessage('No cards left in deck')
         return
       }
@@ -41,6 +35,15 @@ export default function Deck({drawCard, setGameInfoMessage, fetchTutorialDeck, u
         // UseState back to false after animation
       }, 500) 
     }
+
+    useEffect(() => {
+      if (fetchTutorialDeck){
+      fetchDeckCards()
+      }
+    },[fetchTutorialDeck, fetchDeckCards]);
+
+  
+
 
     return(
     <div className='deck' onClick={handleDrawingCards}>

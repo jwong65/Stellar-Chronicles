@@ -28,18 +28,6 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
     name: "Enemy"
   })
 
-// UseEffect so that on load the player hand loads.
-  useEffect(()=>{
-    setPlayerHand(player1Hand)
-  }, [player1Hand])
-  useEffect(() => {
-    // Fetch player's mana from the backend
-    fetchPlayerMana();
-  }, []); 
-  // Fetches enemy from the backend
-  useEffect(()=>{
-    fetchEnemy()
-  },[])
   const fetchEnemy = async () => {
     try {
       const response = await fetch(`${backendUrl}/api/enemy/tutorial`);
@@ -99,7 +87,6 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
 
   const handleCardUse = (card) => {
     setPlayerHand(playerHand.filter((c) => c.id !== card.id));
-
     setUsedCards([...usedCards, card]);
   };
 
@@ -113,6 +100,20 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const drawCard = (card )=>{
     setPlayerHand([...playerHand, card])
   }
+
+  // UseEffect so that on load the player hand loads.
+  useEffect(()=>{
+    setPlayerHand(player1Hand)
+  }, [player1Hand])
+  useEffect(() => {
+    // Fetch player's mana from the backend
+    fetchPlayerMana();
+  }, []); 
+  // Fetches enemy from the backend
+  useEffect(()=>{
+    fetchEnemy()
+  },[])
+
 const enemyHealthPercentage = (enemyHealth / maxEnemyHealth) * 100;
 const healthPercentage = (playerHealth / maxHealth) * 100;
     return (
