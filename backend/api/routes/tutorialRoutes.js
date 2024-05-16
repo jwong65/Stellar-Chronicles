@@ -5,8 +5,8 @@ const router = express.Router();
 router.get('/cards', (req, res) => {
   const tutorialCards = [
     { id: 1, cost: 1, value: 2, effect: 'Deal 2 damage', type: 'Damage' },
-    { id: 2, cost: 2, value: 'Tutorial Card 2', effect: 'Tutorial Effect 2', type: 'Heal' },
-    { id: 3, cost: 1, value: 'Tutorial Card 3', effect: 'Tutorial Effect 3', type: 'Etc.' }
+    { id: 2, cost: 2, value: 2, effect: 'Heal 2 health', type: 'Heal' },
+    { id: 3, cost: 1, value: 1, effect: 'Take 1 damage', type: 'Self Damage' }
   ];
   res.json({ cards: tutorialCards });
 });
