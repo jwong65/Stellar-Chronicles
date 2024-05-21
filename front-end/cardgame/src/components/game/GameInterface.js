@@ -21,19 +21,16 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const [usedCards, setUsedCards] = useState([])
   const [enemyHealth, setEnemyHealth] = useState(maxHealth)
   const [cardInfo, setCardInfo] = useState({})
+  const [enemies, setEnemies] = useState([])
   const [gameInfoMessage, setGameInfoMessage] = useState("")
-
-  const [enemy, setEnemy] = useState({
-    health: maxHealth,
-    name: "Enemy"
-  })
 
   const fetchEnemy = async () => {
     try {
-      const response = await fetch(`${backendUrl}/api/enemy/tutorial`);
+      const response = await fetch(`${backendUrl}/api/tutorial/enemies`);
       if (response.ok) {
         const data = await response.json();
-        setEnemy(data);
+        console.log('Fetched enemies:', data); // Log the data to debug
+        setEnemies(data);
       } else {
         console.error('Failed to fetch enemy:', response.status);
       }
@@ -137,7 +134,7 @@ const healthPercentage = (playerHealth / maxHealth) * 100;
               ))}
           </div>
         </div>
-          <GameBoard /> 
+          <GameBoard enemies={enemies}/> 
           <div className='end-turn-container'>
             <EndTurn isPlayerTurn={isPlayerTurn} />
           </div>

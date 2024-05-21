@@ -19,4 +19,12 @@ router.get('/deck', (req, res)=>{
   res.json({deck: tutorialDeck})
 })
 
+router.get('/enemies', (req, res) => {
+  const tutorialEnemies = [
+  { id: 1, name: 'Goblin', health: 10 },
+  { id: 2, name: 'Orc', health: 20 },
+  ];
+  res.json(tutorialEnemies);
+});
+
 module.exports = router;
