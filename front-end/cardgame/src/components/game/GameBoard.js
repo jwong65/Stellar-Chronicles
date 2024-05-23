@@ -5,7 +5,7 @@ import Enemy from '../common/Enemy'
 export default function GameBoard({enemies}) {
   return (
     <div className='game-board' id= 'playfield' >
-      {enemies.map(enemy => <Enemy enemy={enemy} />)}
+      {enemies.map(enemy => <Enemy key={enemy.id} enemy={enemy} />)}
     </div> 
   )
 }

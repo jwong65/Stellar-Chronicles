@@ -15,9 +15,13 @@
     transition: transform 0.5s;
   }
  
-  .card.selected {
+  /* #game-interface .card.selected {
     border: 2px solid blue;
     box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
+} */
+#game-interface .card.selected {
+  border: 2px solid blue;
+  outline: 2px solid blue;
 }
   
   .card:hover {

@@ -67,33 +67,46 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const handleCardClick = (card)=>{
     if(card.cost <=playerMana){
       setSelectedCard(card)
+      console.log(selectedCard)
     }
     else{
       setGameInfoMessage('Not enough mana to play this card')
     }
   }
-
-  const handleTargetClick = (card)=>{
+ // if(card.type === 'Damage'){ 
+    //   setEnemyHealth(prevHealth =>prevHealth - card.value)
+    // }
+    // if (card.type === 'Self Damage'){
+    //   setPlayerHealth(prevHealth => prevHealth - card.value)
+    // }
+    // if (card.type === 'Heal') {
+    //   if (playerHealth < maxHealth) {
+    //     setPlayerHealth(prevHealth => Math.min(prevHealth + card.value, maxHealth));
+    //   } else {
+    //     setGameInfoMessage('Player health is already at maximum');
+    //     return;
+    //   }
+    
+  const handleTargetClick = (enemy)=>{
     if (selectedCard){
-      
-    }
-    if(card.type === 'Damage'){ 
-      setEnemyHealth(prevHealth =>prevHealth - card.value)
-    }
-    if (card.type === 'Self Damage'){
-      setPlayerHealth(prevHealth => prevHealth - card.value)
-    }
-    if (card.type === 'Heal') {
-      if (playerHealth < maxHealth) {
-        setPlayerHealth(prevHealth => Math.min(prevHealth + card.value, maxHealth));
-      } else {
-        setGameInfoMessage('Player health is already at maximum');
-        return;
-      }
-    }
-      setPlayerMana(prevMana => prevMana - card.cost)
-      setUsedCards(prevUsedCards => [...prevUsedCards, card]);
-      setPlayerHand(prevHand => prevHand.filter(c => c.id !== card.id));
+      const updatedEnemies = enemies.map(currentEnemy =>{
+        if (currentEnemy.id === enemy.id){
+        if(selectedCard.type === 'Damage'){ 
+          // Update the enemy to do damage based on value.
+          enemy.health = Math.max(0, enemy.health - selectedCard.value)
+        }
+        return enemy
+    }})
+    
+      setEnemies(updatedEnemies)
+      setPlayerMana(prevMana => prevMana - selectedCard.cost)
+      setUsedCards(prevUsedCards => [...prevUsedCards, selectedCard]);
+      setPlayerHand(prevHand => prevHand.filter(c => c.id !== selectedCard.id));
+      setSelectedCard(null)
+  }
+  else{
+    setGameInfoMessage('No card selected')
+  }
   }
   
 
@@ -149,7 +162,7 @@ const healthPercentage = (playerHealth / maxHealth) * 100;
               ))}
           </div>
         </div>
-          <GameBoard enemies={enemies}/> 
+          <GameBoard enemies={enemies} handleTargetClick={handleTargetClick}/> 
           <div className='end-turn-container'>
             <EndTurn isPlayerTurn={isPlayerTurn} />
           </div>
@@ -165,7 +178,7 @@ const healthPercentage = (playerHealth / maxHealth) * 100;
         </div>
         {playerHand.map(card => (
           <Card key={uuidv4()} id={card.id} value={card.value} effect={card.effect} cost={card.cost} type={card.type} 
-            handleCardClick={() => { handleCardClick(card); }} 
+            handleCardClick={handleCardClick} 
             handleCardHover={handleCardHover}
             handleCardLeave={handleCardLeave}
             isSelected={selectedCard && selectedCard.id === card.id}
