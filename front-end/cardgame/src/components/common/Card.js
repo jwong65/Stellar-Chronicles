@@ -1,7 +1,7 @@
 import React from 'react'
 import './card.css'
 
-export default function Card({id, cost, value, effect, handleCardClick, handleCardHover, handleCardLeave}) {
+export default function Card({id, cost, value, effect, handleCardClick, handleCardHover, handleCardLeave, isSelected}) {
   const handleClick=() =>{
     handleCardClick(2)
   }
@@ -13,7 +13,7 @@ export default function Card({id, cost, value, effect, handleCardClick, handleCa
   }
   return (
     <div 
-      className={`card`}
+      className={`card ${isSelected? "selected" : ""}`}
       onClick={handleClick} 
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave} 

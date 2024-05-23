@@ -14,6 +14,11 @@
     transform-style: preserve-3d;
     transition: transform 0.5s;
   }
+ 
+  .card.selected {
+    border: 2px solid blue;
+    box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
+}
   
   .card:hover {
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.5);

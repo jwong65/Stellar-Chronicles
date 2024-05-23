@@ -27,6 +27,7 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const [cardInfo, setCardInfo] = useState({})
   const [enemies, setEnemies] = useState([])
   const [gameInfoMessage, setGameInfoMessage] = useState("")
+  const [selectedCard, setSelectedCard] = useState(null)
 
   // Drawer functions
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -65,7 +66,18 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
 
   const handleCardClick = (card)=>{
     if(card.cost <=playerMana){
-    if(card.type === 'Damage'){
+      setSelectedCard(card)
+    }
+    else{
+      setGameInfoMessage('Not enough mana to play this card')
+    }
+  }
+
+  const handleTargetClick = (card)=>{
+    if (selectedCard){
+      
+    }
+    if(card.type === 'Damage'){ 
       setEnemyHealth(prevHealth =>prevHealth - card.value)
     }
     if (card.type === 'Self Damage'){
@@ -82,12 +94,8 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
       setPlayerMana(prevMana => prevMana - card.cost)
       setUsedCards(prevUsedCards => [...prevUsedCards, card]);
       setPlayerHand(prevHand => prevHand.filter(c => c.id !== card.id));
-    }
-    
-    else{
-      setGameInfoMessage('Not enough mana to play this card')
-    }
   }
+  
 
   const handleCardUse = (card) => {
     setPlayerHand(playerHand.filter((c) => c.id !== card.id));
@@ -160,6 +168,7 @@ const healthPercentage = (playerHealth / maxHealth) * 100;
             handleCardClick={() => { handleCardClick(card); }} 
             handleCardHover={handleCardHover}
             handleCardLeave={handleCardLeave}
+            isSelected={selectedCard && selectedCard.id === card.id}
           />
         ))}
         </div>
