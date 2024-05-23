@@ -15,7 +15,8 @@
     margin-top: 10px;
   }
 .game-board{
-    /* background-image: url('../images/MainPanel03.png'); */
+    display: flex;
+    flex-direction: row;
     background-color :#0a192f;
     background-image: linear-gradient(to bottom right,  #ffaa5e, #ffd4a3  );
     background-size: 100% 100%;
@@ -24,6 +25,10 @@
     height: 50vh;
     width: 75vw;
     z-index: 1;
+
+    justify-content: space-around;
+    /* Allows for second row of enemies */
+    flex-wrap: wrap;
     
 }
 .player-hand{
@@ -82,3 +87,35 @@
 }
 /* #544e68
 #8d697a  */
+.enemy {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    border: 1px solid #000;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px red
+  }
+
+  .enemy .health-bar {
+    width: 80%;
+    height: 10px;
+    /* This is the grey behind the health bar */
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+  }
+  
+  .enemy .health-fill {
+    height: 100%;
+    /* Health that is in the bar */
+    background-color: red;
+    border-radius: 5px;
+    transition: width 0.3s ease-in-out;
+  }
