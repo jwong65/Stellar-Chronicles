@@ -63,17 +63,13 @@
     height: 32px;
     background-image: url('../images/1.png');
     background-repeat: no-repeat;
-    animation: animateSprites 2s steps(4) infinite;
+    animation: animateSprites 1s steps(4) infinite;
   }
-  
   @keyframes animateSprites {
-    0%, 50% {
-      background-position: 0 0;
-    }
-    100% {
-      background-position: -128px 0;
-    }
-  }
+    0% { background-position: 0 0; } /* Start position */
+    100% { background-position: -128px 0; } /* End position */
+}
+
   .player-container {
     display: flex;
   }

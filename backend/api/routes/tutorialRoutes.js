@@ -21,7 +21,7 @@ router.get('/deck', (req, res)=>{
 
 router.get('/enemies', (req, res) => {
   const tutorialEnemies = [
-  { id: 1, name: 'Goblin', health: 10 },
+  { id: 1, name: 'Slime', health: 10, frames: 8, frameWidth: 128, frameHeight: 128},
   { id: 2, name: 'Orc', health: 20 },
   ];
   res.json(tutorialEnemies);
