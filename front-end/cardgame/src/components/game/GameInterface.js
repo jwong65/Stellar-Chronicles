@@ -9,6 +9,10 @@ import Deck from '../common/Deck'
 import GameBoard from './GameBoard'
 import { v4 as uuidv4 } from 'uuid';
 
+// Materia UI imports
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+
 export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const maxEnemyHealth = 15
@@ -23,6 +27,12 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const [cardInfo, setCardInfo] = useState({})
   const [enemies, setEnemies] = useState([])
   const [gameInfoMessage, setGameInfoMessage] = useState("")
+
+  // Drawer functions
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+  };
 
   const fetchEnemy = async () => {
     try {
@@ -154,8 +164,21 @@ const healthPercentage = (playerHealth / maxHealth) * 100;
         ))}
         </div>
         <div className='deck-container'>
-          <Deck drawCard={drawCard} setGameInfoMessage={setGameInfoMessage} fetchTutorialDeck={fetchTutorialDeck} usedCards={usedCards} />
+          <Deck drawCard={drawCard} setGameInfoMessage={setGameInfoMessage} fetchTutorialDeck={fetchTutorialDeck} />
         </div>
+        <Button onClick={toggleDrawer} >SEE USED CARDS</Button>
+        <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer}>
+        <div style={{ width: 250 }}>
+          <h2>Used Cards</h2>
+          <div className="used-cards">
+            {usedCards.map((card) => (
+              <div key={card.id} className="used-card">
+                ID: {card.id}, Cost: {card.cost}, Value: {card.value}, Effect: {card.effect}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Drawer>
       </div>
     </div>
   )
