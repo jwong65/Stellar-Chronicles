@@ -22,7 +22,7 @@ export default function Deck({drawCard, setGameInfoMessage, fetchTutorialDeck}) 
     },[backendUrl])
 
     const handleDrawingCards=()=>{
-      if (deckCards.length==='0'){
+      if (deckCards.length===0){
         setGameInfoMessage('No cards left in deck')
         return
       }
@@ -35,6 +35,8 @@ export default function Deck({drawCard, setGameInfoMessage, fetchTutorialDeck}) 
         // UseState back to false after animation
       }, 500) 
     }
+
+    
 
     useEffect(() => {
       if (fetchTutorialDeck){
