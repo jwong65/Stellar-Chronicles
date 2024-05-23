@@ -29,17 +29,23 @@
     transition: width 0.3s ease-in-out;
   }
 
+  
 
-  .enemy-sprite {
+.enemy-sprite {
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: cover; 
-    animation: animateEnemy 1s steps(8) infinite; 
+    animation: animateEnemy 1s steps(var(--frames))infinite;
+    /* animation: animateEnemy 1s steps(8) infinite;  */
   }
   
   
-@keyframes animateEnemy {
+ @keyframes animateEnemy {
+    0% { background-position: 0 0; } 
+    100% { background-position: calc(-1 * var(--frame-width) * var(--frames)) 0; }
+ }
+/* @keyframes animateEnemy {
     0% { background-position: 0 0; } 
     100% { background-position: -1024px 0; } 
-  }
+} */
