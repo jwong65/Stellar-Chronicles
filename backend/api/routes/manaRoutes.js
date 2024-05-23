@@ -6,7 +6,6 @@ router.get('/tutorial', (req, res) => {
    try{
     const playerMana = 3;
     // Player's mana as a response.
-    
     res.json({mana: playerMana});
 
    } catch (error) {

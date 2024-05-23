@@ -20,7 +20,6 @@ app.get('/', (req, res) => {
     res.json({ message: 'Hello from Express!' });
   });
 
-// Get the current game state
 app.get('/api/game/state', (req, res)=>{
   res.json({gameState})
 })

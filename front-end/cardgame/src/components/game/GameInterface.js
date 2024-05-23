@@ -29,7 +29,6 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
       const response = await fetch(`${backendUrl}/api/tutorial/enemies`);
       if (response.ok) {
         const data = await response.json();
-        console.log('Fetched enemies:', data); // Log the data to debug
         setEnemies(data);
       } else {
         console.error('Failed to fetch enemy:', response.status);
@@ -45,7 +44,6 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
       const response = await fetch(`${backendUrl}/api/player/mana/tutorial`);
       if (response.ok) {
         const data = await response.json();
-        console.log('Fetched player mana:', data.mana);
         setPlayerMana(data.mana); // Update playerMana state with data from backend
       } else {
         console.error('Failed to fetch player mana:', response.status);
@@ -74,7 +72,6 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
       setPlayerMana(prevMana => prevMana - card.cost)
       setUsedCards(prevUsedCards => [...prevUsedCards, card]);
       setPlayerHand(prevHand => prevHand.filter(c => c.id !== card.id));
-      // console.log(usedCards)
     }
     
     else{
