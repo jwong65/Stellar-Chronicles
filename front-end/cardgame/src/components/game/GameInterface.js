@@ -189,6 +189,11 @@ const healthPercentage = (playerHealth / maxHealth) * 100;
           <Deck drawCard={drawCard} setGameInfoMessage={setGameInfoMessage} fetchTutorialDeck={fetchTutorialDeck} />
         </div>
         <Button onClick={toggleDrawer} >SEE USED CARDS</Button>
+        {/* {selectedCard && (
+          <div className='current-card'>
+            Currently selected Card ID: {selectedCard.id}, Cost: {selectedCard.cost}, Value: {selectedCard.value}, Effect: {selectedCard.effect}
+          </div>
+        )} */}
         <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer}>
         <div style={{ width: 250 }}>
           <h2>Used Cards</h2>
