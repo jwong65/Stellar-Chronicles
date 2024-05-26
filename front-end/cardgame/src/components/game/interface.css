@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffecd6 ;
+    background-color: #95afba ;
     border: 1px solid black;
     height: 100vh;
     width: 100vw;
@@ -17,8 +17,8 @@
 .game-board{
     display: flex;
     flex-direction: row;
-    background-color :#0a192f;
-    background-image: linear-gradient(to bottom right,  #ffaa5e, #ffd4a3  );
+    background-color: #3f7cacff;
+    background-image: linear-gradient(to bottom right, #95afba);
     background-size: 100% 100%;
     background-position: center;
     border-radius: 8px;
@@ -87,3 +87,11 @@
 }
 /* #544e68
 #8d697a  */
+
+
+/* CSS HEX */
+/* --steel-blue: #3f7cacff;
+--cadet-gray: #95afbaff;
+--sage: #bdc4a7ff;
+--tea-green: #d5e1a3ff;
+--mindaro: #e2f89cff; */
