@@ -33,7 +33,10 @@
 }
 .player-hand{
     display: flex;
+    display: wrap;
     margin-top: 10px;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 .enemyhealth{
     border: 1px solid #4b244a
@@ -51,6 +54,14 @@
     border-radius: 5px;
     transition: width 0.3s ease-in-out;
   }
+.select-card{
+    height: 2em;
+    border-radius: 5px;
+    margin-top: 10px;
+    /* padding: 10px 20px; */
+    /* color: white; */
+  }
+
 .end-turn {
     z-index: 1;
     width: 150px;

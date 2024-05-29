@@ -14,6 +14,11 @@
     transform-style: preserve-3d;
     transition: transform 0.5s;
   }
+  .card p {
+    font-size: 0.9em;
+    margin: 0.5em;
+    /* line-height: 1.2em; */
+  }
  
   /* #game-interface .card.selected {
     border: 2px solid blue;

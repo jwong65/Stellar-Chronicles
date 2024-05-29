@@ -10,8 +10,8 @@ import GameBoard from './GameBoard'
 import { v4 as uuidv4 } from 'uuid';
 
 // Materia UI imports
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
+import { Modal, Box, Drawer, Button } from '@mui/material'
+import CardSelection from './CardSelection'
 
 export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -33,6 +33,12 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
+  };
+
+  // Card Selection Menu functions
+  const [isCardMenuOpen, setIsCardMenuOpen] = useState(false);
+  const toggleCardMenu = () => {
+    setIsCardMenuOpen(!isCardMenuOpen);
   };
 
   const fetchEnemy = async () => {
@@ -67,6 +73,7 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const handleCardClick = (card)=>{
     if(card.cost <=playerMana){
       setSelectedCard(card)
+      setIsCardMenuOpen(false);
       console.log(selectedCard)
     }
     else{
@@ -177,36 +184,48 @@ const healthPercentage = (playerHealth / maxHealth) * 100;
           </div>
         </div>
         {playerHand.map(card => (
-          <Card key={uuidv4()} id={card.id} value={card.value} effect={card.effect} cost={card.cost} type={card.type} 
+          <Card key={uuidv4()} id={card.id} value={card.value} effect={card.effect} cost={card.cost} type={card.type} name={card.name}
             handleCardClick={handleCardClick} 
             handleCardHover={handleCardHover}
             handleCardLeave={handleCardLeave}
             isSelected={selectedCard && selectedCard.id === card.id}
           />
         ))}
+
         </div>
         <div className='deck-container'>
           <Deck drawCard={drawCard} setGameInfoMessage={setGameInfoMessage} fetchTutorialDeck={fetchTutorialDeck} />
         </div>
-        <Button onClick={toggleDrawer} >SEE USED CARDS</Button>
-        {/* {selectedCard && (
-          <div className='current-card'>
-            Currently selected Card ID: {selectedCard.id}, Cost: {selectedCard.cost}, Value: {selectedCard.value}, Effect: {selectedCard.effect}
-          </div>
-        )} */}
+        <Button onClick={toggleDrawer} variant='text'>SEE USED CARDS</Button>
         <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer}>
         <div style={{ width: 250 }}>
           <h2>Used Cards</h2>
           <div className="used-cards">
             {usedCards.map((card) => (
               <div key={card.id} className="used-card">
-                ID: {card.id}, Cost: {card.cost}, Value: {card.value}, Effect: {card.effect}
+                ID: {card.id}, Cost: {card.cost}, Value: {card.value}, Effect: {card.effect}, Name: {card.name}
               </div>
             ))}
           </div>
         </div>
       </Drawer>
       </div>
+      <button className='select-card' onClick={toggleCardMenu}>Select a Card</button>
+
+      
+      <Modal
+          open={isCardMenuOpen}
+          onClose={toggleCardMenu}
+        >
+          <Box className="modal-box">
+            <CardSelection
+              playerHand={playerHand}
+              handleCardClick={handleCardClick}
+              // handlePlayCard={handlePlayCard}
+              selectedCard={selectedCard}
+            />
+          </Box>
+        </Modal>
     </div>
   )
 }

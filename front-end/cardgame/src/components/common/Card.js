@@ -1,7 +1,7 @@
 import React from 'react'
 import './card.css'
 
-export default function Card({id, cost, value, effect, handleCardClick, handleCardHover, handleCardLeave, isSelected}) {
+export default function Card({id, cost, value, effect, name, handleCardClick, handleCardHover, handleCardLeave, isSelected}) {
 
   const handleMouseEnter =()=>{
     handleCardHover({id, cost, value, effect})
@@ -12,11 +12,12 @@ export default function Card({id, cost, value, effect, handleCardClick, handleCa
   return (
     <div 
       className={`card ${isSelected? "selected" : ""}`}
-      onClick={() => handleCardClick({ id, cost, value, effect })} 
+      onClick={() => handleCardClick({ id, cost, value, effect, name })} 
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave} 
     > 
       <div className='front'>
+        <p>{name }</p>
         <p>Cost: {cost} </p>
         <div className='sprite-container' />
           {/* <p>Card: {value}</p> */}
