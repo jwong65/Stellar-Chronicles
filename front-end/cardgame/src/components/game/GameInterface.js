@@ -72,9 +72,9 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
 
   const handleCardClick = (card)=>{
     if(card.cost <=playerMana){
+      console.log('Card played', card)
       setSelectedCard(card)
       setIsCardMenuOpen(false);
-      console.log(selectedCard)
     }
     else{
       setGameInfoMessage('Not enough mana to play this card')
@@ -94,28 +94,61 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
     //     return;
     //   }
     
-  const handleTargetClick = (enemy)=>{
-    if (selectedCard){
-      const updatedEnemies = enemies.map(currentEnemy =>{
-        if (currentEnemy.id === enemy.id){
-        if(selectedCard.type === 'Damage'){ 
-          // Update the enemy to do damage based on value.
-          enemy.health = Math.max(0, enemy.health - selectedCard.value)
+//   const handleTargetClick = (enemy)=>{
+//     if(enemy){
+//       if (selectedCard){
+//         const updatedEnemies = enemies.map(currentEnemy =>{
+//           if (currentEnemy.id === enemy.id){
+//           if(selectedCard.type === 'Damage'){ 
+//             // Update the enemy to do damage based on value.
+//             currentEnemy.health = Math.max(0, currentEnemy.health - selectedCard.value)
+//           }
+//           return currentEnemy
+//       }
+//     })
+      
+//         setEnemies(updatedEnemies)
+//         setPlayerMana(prevMana => prevMana - selectedCard.cost)
+//         setUsedCards(prevUsedCards => [...prevUsedCards, selectedCard]);
+//         setPlayerHand(prevHand => prevHand.filter(c => c.id !== selectedCard.id));
+//         setSelectedCard(null)
+//     }
+//     else{
+//       setGameInfoMessage('No card selected')
+//     }
+//   }
+//   else{
+//     console.error('Enemy undefined')
+//   }
+// }
+  const handleTargetClick = (enemy) => {
+    console.log("Selected card:", selectedCard);
+    if (selectedCard) {
+
+      const updatedEnemies = enemies.map((currentEnemy) => {
+        if (currentEnemy && currentEnemy.id === enemy.id) {
+          if (selectedCard.type === 'Damage') {
+            const newHealth = Math.max(0, currentEnemy.health - selectedCard.value);
+            console.log(`Updating health for ${currentEnemy.name} from ${currentEnemy.health} to ${newHealth}`);
+          
+          return {
+            ...currentEnemy,
+            health: newHealth
+          }
         }
-        return enemy
-    }})
-    
-      setEnemies(updatedEnemies)
-      setPlayerMana(prevMana => prevMana - selectedCard.cost)
+        }
+        return currentEnemy;
+      }).filter(e => e !== undefined);
+
+      setEnemies(updatedEnemies);
+      setPlayerMana(prevMana => prevMana - selectedCard.cost);
       setUsedCards(prevUsedCards => [...prevUsedCards, selectedCard]);
       setPlayerHand(prevHand => prevHand.filter(c => c.id !== selectedCard.id));
-      setSelectedCard(null)
-  }
-  else{
-    setGameInfoMessage('No card selected')
-  }
-  }
-  
+      setSelectedCard(null);
+    } else {
+      setGameInfoMessage('No card selected');
+    }
+  };
 
   const handleCardUse = (card) => {
     setPlayerHand(playerHand.filter((c) => c.id !== card.id));

@@ -7,7 +7,6 @@ export default function StartingMenu() {
     <div id='start'>
       <h1>Stellar Chronicles</h1>
       <p>A card game of strategy and chance</p>
-      
       <div className='button-container'>
         <button>Start Game</button>
         <Link to="/tutorial">

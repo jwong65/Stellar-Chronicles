@@ -3,7 +3,8 @@ import BlueSlime from '../images/enemy/BlueSlimeIdle.png'
 import BlueJelly from '../images/enemy/Jellyfish.png'
 import './enemy.css'
 
-export default function Enemy({enemy, onClick}) {
+export default function Enemy({enemy, handleTargetClick}) {
+
     const enemyHealthPercentage = (enemy.health / enemy.maxHealth) * 100;
 
     const enemyImages ={
@@ -12,7 +13,7 @@ export default function Enemy({enemy, onClick}) {
     }
     
   return (
-    <div className='enemy'>
+    <div className='enemy' onClick={()=>{handleTargetClick(enemy)}}>
         <div className='enemy-name'>{enemy.name}</div>
         <div className='enemy-sprite' style={
             {
@@ -30,3 +31,11 @@ export default function Enemy({enemy, onClick}) {
     </div>
   )
 }
+
+
+{/* <div className='enemy-health' id='enemyhealth'>
+Enemy Health: {enemyHealth}
+<div className='health-bar'>
+  <div className='health-fill' style={{ width: `${enemyHealthPercentage}%` }}></div>
+</div>
+</div> */}
