@@ -1,6 +1,6 @@
 import './App.css';
 import Tutorial from './components/game/Tutorial';
-import NewGame from './components/newGame/NewGame'
+import NewGame from './components/startGame/NewGame'
 import StartingMenu from './components/game/StartingMenu'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
