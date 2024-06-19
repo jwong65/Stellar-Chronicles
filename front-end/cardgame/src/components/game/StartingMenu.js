@@ -8,7 +8,9 @@ export default function StartingMenu() {
       <h1>Stellar Chronicles</h1>
       <p>A card game of strategy and chance</p>
       <div className='button-container'>
-        <button>Start Game</button>
+        <Link to="/create">
+          <button>Start Game</button>
+        </Link>
         <Link to="/tutorial">
           <button>Tutorial</button>
         </Link>
