@@ -13,9 +13,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { Modal, Box, Drawer, Button } from '@mui/material'
 import CardSelection from './CardSelection'
 
+// Utils
+import { handlePlayerHeal, handlePlayerDamage } from '../utils/cardHandler'
+
 export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
-  const maxEnemyHealth = 15
   const maxHealth = 15
   const maxMana = 4
   const [playerMana, setPlayerMana] = useState(0)
@@ -23,7 +25,6 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
   const [playerHand, setPlayerHand] = useState(player1Hand)
   const [playerHealth, setPlayerHealth] = useState(maxHealth)
   const [usedCards, setUsedCards] = useState([])
-  const [enemyHealth, setEnemyHealth] = useState(maxHealth)
   const [cardInfo, setCardInfo] = useState({})
   const [enemies, setEnemies] = useState([])
   const [gameInfoMessage, setGameInfoMessage] = useState("")
@@ -72,7 +73,12 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
 
   const handleCardClick = (card)=>{
     if(card.cost <=playerMana){
-      console.log('Card played', card)
+      if (card.type === 'Heal') {
+        handlePlayerHeal(card, setPlayerHealth, setPlayerMana, setUsedCards, setPlayerHand, setSelectedCard, maxHealth)
+      }
+      if (card.type === 'Self Damage') {
+        handlePlayerDamage(card, setPlayerHealth, setPlayerMana, setUsedCards, setPlayerHand, setSelectedCard)
+      }
       setSelectedCard(card)
       setIsCardMenuOpen(false);
     }
@@ -80,57 +86,15 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
       setGameInfoMessage('Not enough mana to play this card')
     }
   }
- // if(card.type === 'Damage'){ 
-    //   setEnemyHealth(prevHealth =>prevHealth - card.value)
-    // }
-    // if (card.type === 'Self Damage'){
-    //   setPlayerHealth(prevHealth => prevHealth - card.value)
-    // }
-    // if (card.type === 'Heal') {
-    //   if (playerHealth < maxHealth) {
-    //     setPlayerHealth(prevHealth => Math.min(prevHealth + card.value, maxHealth));
-    //   } else {
-    //     setGameInfoMessage('Player health is already at maximum');
-    //     return;
-    //   }
-    
-//   const handleTargetClick = (enemy)=>{
-//     if(enemy){
-//       if (selectedCard){
-//         const updatedEnemies = enemies.map(currentEnemy =>{
-//           if (currentEnemy.id === enemy.id){
-//           if(selectedCard.type === 'Damage'){ 
-//             // Update the enemy to do damage based on value.
-//             currentEnemy.health = Math.max(0, currentEnemy.health - selectedCard.value)
-//           }
-//           return currentEnemy
-//       }
-//     })
-      
-//         setEnemies(updatedEnemies)
-//         setPlayerMana(prevMana => prevMana - selectedCard.cost)
-//         setUsedCards(prevUsedCards => [...prevUsedCards, selectedCard]);
-//         setPlayerHand(prevHand => prevHand.filter(c => c.id !== selectedCard.id));
-//         setSelectedCard(null)
-//     }
-//     else{
-//       setGameInfoMessage('No card selected')
-//     }
-//   }
-//   else{
-//     console.error('Enemy undefined')
-//   }
-// }
   const handleTargetClick = (enemy) => {
-    console.log("Selected card:", selectedCard);
     if (selectedCard) {
-
       const updatedEnemies = enemies.map((currentEnemy) => {
         if (currentEnemy && currentEnemy.id === enemy.id) {
           if (selectedCard.type === 'Damage') {
-            const newHealth = Math.max(0, currentEnemy.health - selectedCard.value);
-            console.log(`Updating health for ${currentEnemy.name} from ${currentEnemy.health} to ${newHealth}`);
-          
+            const newHealth = Math.max(0, currentEnemy.health - selectedCard.value);      
+          if (selectedCard.type === 'Self Damage'){
+            setPlayerHealth(prevHealth => prevHealth - selectedCard.value)
+          }
           return {
             ...currentEnemy,
             health: newHealth
@@ -148,11 +112,6 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
     } else {
       setGameInfoMessage('No card selected');
     }
-  };
-
-  const handleCardUse = (card) => {
-    setPlayerHand(playerHand.filter((c) => c.id !== card.id));
-    setUsedCards([...usedCards, card]);
   };
 
   // These two handles are for the cardInformation on hover.
@@ -179,16 +138,9 @@ export default function GameInterface({player1Hand, fetchTutorialDeck}) {
     fetchEnemy()
   },[])
 
-const enemyHealthPercentage = (enemyHealth / maxEnemyHealth) * 100;
 const healthPercentage = (playerHealth / maxHealth) * 100;
     return (
     <div id='game-interface'>
-        <div className='enemy-health' id='enemyhealth'>
-          Enemy Health: {enemyHealth}
-          <div className='health-bar'>
-            <div className='health-fill' style={{ width: `${enemyHealthPercentage}%` }}></div>
-          </div>
-        </div>
         <div id='playarea'>
           <div className='info-container'>
             <CardMessage cardInfo={cardInfo}/>
