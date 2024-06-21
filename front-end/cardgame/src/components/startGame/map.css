@@ -1,0 +1,25 @@
+.game-container{
+    background-color: #95afba ;
+    height: 100vh;
+    width: 100vw;
+}
+.map-container{
+    justify-content: center;
+    display: grid;
+    gap: 3px;
+    grid-template-columns: repeat(10, 50px); 
+    grid-template-rows: repeat(10, 50px);
+}
+.map-cell{
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    background-color: grey;
+}
+.map-cell-wall {
+    background-color: #333;
+  }
+  
+  .map-cell-path {
+    background-color: #0f0;
+  }
